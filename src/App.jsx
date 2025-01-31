@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import DiaryForm from "./components/DiaryForm";
+import InputForm from "./components/InputForm";
 import "./index.css"; // Global styles
 
 export default function App() {
@@ -13,7 +13,7 @@ export default function App() {
           <h1 className="text-4xl font-bold">Welcome to Secret Scribblers</h1>
           <p className="text-lg">Your digital diary for creative thoughts.</p>
         </section>
-        <DiaryForm />
+        <InputForm />
       </main>
       <Footer />
     </div>
