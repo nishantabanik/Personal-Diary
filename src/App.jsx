@@ -1,12 +1,21 @@
-import { useState } from 'react'
+import React from "react";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import DiaryForm from "./components/DiaryForm";
+import "./index.css"; // Global styles
 
-function App() {
-
+export default function App() {
   return (
-    <>
-      <div></div>
-    </>
-  )
+    <div className="bg-base-100 text-base-content min-h-screen">
+      <Header />
+      <main className="container mx-auto p-4">
+        <section className="hero bg-base-200 text-center py-10">
+          <h1 className="text-4xl font-bold">Welcome to Secret Scribblers</h1>
+          <p className="text-lg">Your digital diary for creative thoughts.</p>
+        </section>
+        <DiaryForm />
+      </main>
+      <Footer />
+    </div>
+  );
 }
-
-export default App
