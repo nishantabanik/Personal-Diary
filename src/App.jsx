@@ -21,13 +21,12 @@ export default function App() {
           <h1 className="text-4xl font-bold">Welcome to Secret Scribblers</h1>
           <p className="text-lg">Your digital diary for creative thoughts.</p>
         </section>
-
         <InputForm /> {/* Input form for adding entries */}
-
         {/* Entries section below the input form */}
         <section className="my-8">
           <h2 className="text-2xl font-semibold mb-4">Your Diary Entries</h2>
-          <Entries entries={diaryEntries} /> {/* Pass diary entries to Entries component */}
+          <Entries entries={diaryEntries} />{" "}
+          {/* Pass diary entries to Entries component */}
         </section>
       </main>
 
