@@ -15,13 +15,13 @@ export default function App() {
   return (
     <div className="bg-base-100 text-base-content min-h-screen flex flex-col">
       <Header />
-      
+
       <main className="container mx-auto p-4 flex-grow">
         <section className="hero bg-base-200 text-center py-10 rounded-lg shadow">
           <h1 className="text-4xl font-bold">Welcome to Secret Scribblers</h1>
           <p className="text-lg">Your digital diary for creative thoughts.</p>
         </section>
-        
+
         <InputForm /> {/* Input form for adding entries */}
 
         {/* Entries section below the input form */}
