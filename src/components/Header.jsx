@@ -4,24 +4,36 @@ import { motion } from "framer-motion";
 import AddEntryButton from "./AddEntryButton";
 import AddEntryModal from "./AddEntryModal";
 
-const Header = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [title, setTitle] = useState("");
-  const [date, setDate] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [content, setContent] = useState("");
-  const [error, setError] = useState("");
+const Header = ({ setEntries, entries }) => { // Receiving setEntries and entries as props
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
+  const [title, setTitle] = useState(""); // State for entry title
+  const [date, setDate] = useState(""); // State for entry date
+  const [imageUrl, setImageUrl] = useState(""); // State for entry image URL
+  const [content, setContent] = useState(""); // State for entry content
+  const [error, setError] = useState(""); // State for error messages
 
   useEffect(() => {
-    setError("");
+    setError(""); // Clear errors when any field changes
   }, [title, date, imageUrl, content]);
 
   const handleAddEntry = () => {
-    if (!title || !date || !imageUrl || !content) {
-      setError("All fields are required!");
+    if (!title || !date || !imageUrl || !content) { // Validate all fields
+      setError("All fields are required!"); // Set error if any field is empty
       return;
     }
-    setIsModalOpen(false);
+
+    const newEntry = {
+      id: Date.now(), // Unique ID for the new entry
+      title,
+      date,
+      imageUrl,
+      content,
+    };
+
+    setEntries([newEntry, ...entries]); // Add new entry to the beginning of entries array
+    setIsModalOpen(false); // Close the modal
+
+    // Clear form fields after saving
     setTitle("");
     setDate("");
     setImageUrl("");
@@ -30,16 +42,14 @@ const Header = () => {
 
   return (
     <motion.header
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 2 }}
-      className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white p-6"
+      initial={{ opacity: 0, y: -20 }} // Initial animation state
+      animate={{ opacity: 1, y: 0 }} // Final animation state
+      transition={{ duration: 2 }} // Duration of the animation
+      className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white p-6" // Styling for the header
     >
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-center py-4 gap-6">
-          <div className="flex-shrink-0">
-            <Logo className="w-36 md:w-44 lg:w-52" />
-          </div>
+          <Logo className="w-36 md:w-44 lg:w-52" /> {/* Logo component */}
           <div className="flex flex-col items-center text-center flex-grow mx-4">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-wide drop-shadow-lg">
               Personal Diary
@@ -48,14 +58,12 @@ const Header = () => {
               Capture your thoughts, one day at a time.
             </p>
           </div>
-          <div className="flex-shrink-0 flex space-x-4 items-center">
-            <AddEntryButton onClick={() => setIsModalOpen(true)} />
-          </div>
+          <AddEntryButton onClick={() => setIsModalOpen(true)} /> {/* Button to open modal */}
         </div>
       </div>
       <AddEntryModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        isOpen={isModalOpen} // Pass modal open state
+        onClose={() => setIsModalOpen(false)} // Function to close modal
         title={title}
         setTitle={setTitle}
         date={date}
@@ -65,7 +73,7 @@ const Header = () => {
         content={content}
         setContent={setContent}
         error={error}
-        handleSave={handleAddEntry}
+        handleSave={handleAddEntry} // Function to handle saving the entry
       />
     </motion.header>
   );
