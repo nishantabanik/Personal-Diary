@@ -4,7 +4,8 @@ import { motion } from "framer-motion";
 import AddEntryButton from "./AddEntryButton";
 import AddEntryModal from "./AddEntryModal";
 
-const Header = ({ setEntries, entries }) => { // Receiving setEntries and entries as props
+const Header = ({ setEntries, entries }) => {
+  // Receiving setEntries and entries as props
   const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
   const [title, setTitle] = useState(""); // State for entry title
   const [date, setDate] = useState(""); // State for entry date
@@ -17,7 +18,8 @@ const Header = ({ setEntries, entries }) => { // Receiving setEntries and entrie
   }, [title, date, imageUrl, content]);
 
   const handleAddEntry = () => {
-    if (!title || !date || !imageUrl || !content) { // Validate all fields
+    if (!title || !date || !imageUrl || !content) {
+      // Validate all fields
       setError("All fields are required!"); // Set error if any field is empty
       return;
     }
@@ -49,7 +51,7 @@ const Header = ({ setEntries, entries }) => { // Receiving setEntries and entrie
     >
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-center py-4 gap-6">
-          <Logo className="w-36 md:w-44 lg:w-52" /> {/* Logo component */}
+          <img src="../public/logo-w.svg" alt="Logo" className="w-80" />
           <div className="flex flex-col items-center text-center flex-grow mx-4">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-wide drop-shadow-lg">
               Personal Diary
@@ -58,7 +60,8 @@ const Header = ({ setEntries, entries }) => { // Receiving setEntries and entrie
               Capture your thoughts, one day at a time.
             </p>
           </div>
-          <AddEntryButton onClick={() => setIsModalOpen(true)} /> {/* Button to open modal */}
+          <AddEntryButton onClick={() => setIsModalOpen(true)} />{" "}
+          {/* Button to open modal */}
         </div>
       </div>
       <AddEntryModal
