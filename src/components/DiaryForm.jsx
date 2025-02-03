@@ -15,7 +15,7 @@ const DiaryForm = ({
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto"; // reset of height
-      const maxHeight = window.innerHeight * 0.9; // 90% of viewport height
+      const maxHeight = window.innerHeight * 0.6; // max height of form in viewport
       const newHeight = Math.min(textareaRef.current.scrollHeight, maxHeight);
       textareaRef.current.style.height = `${newHeight}px`; // Adapting height
     }
