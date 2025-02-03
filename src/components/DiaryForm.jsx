@@ -1,3 +1,5 @@
+import { useRef, useEffect } from "react";
+
 const DiaryForm = ({
   title,
   setTitle,
@@ -8,6 +10,17 @@ const DiaryForm = ({
   content,
   setContent,
 }) => {
+  const textareaRef = useRef(null);
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto"; // reset of height
+      const maxHeight = window.innerHeight * 0.9; // 90% of viewport height
+      const newHeight = Math.min(textareaRef.current.scrollHeight, maxHeight);
+      textareaRef.current.style.height = `${newHeight}px`; // Adapting height
+    }
+  }, [content]); // effect starts with increasing content
+
   return (
     <>
       <input
@@ -31,8 +44,10 @@ const DiaryForm = ({
         onChange={(e) => setImageUrl(e.target.value)}
       />
       <textarea
+        ref={textareaRef}
         placeholder="Content"
-        className="w-full p-2 mb-2 border rounded"
+        className="w-full p-2 mb-2 border rounded resize overflow-auto"
+        style={{ maxHeight: "90vh" }} // prevent max height
         value={content}
         onChange={(e) => setContent(e.target.value)}
       ></textarea>
