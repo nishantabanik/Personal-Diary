@@ -27,7 +27,7 @@ const DiaryForm = ({
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImageUrl(reader.result); // Saves image as url
+        setImageUrl(reader.result); // Save image as url
       };
       reader.readAsDataURL(file);
     }
@@ -81,49 +81,44 @@ const DiaryForm = ({
         onChange={(e) => setDate(e.target.value)}
       />
 
-      {/* Insert Img URL */}
-      <input
-        type="text"
-        placeholder="Image URL"
-        className="w-full p-2 mb-2 border rounded"
-        value={imageUrl}
-        onChange={(e) => setImageUrl(e.target.value)}
-      />
-
-      {/* Drag & Drop Section + File Upload */}
-      <div
-        className={`w-full p-4 mb-2 border-2 rounded cursor-pointer transition ${
-          dragActive ? "border-blue-500 bg-blue-100" : "border-gray-300"
-        }`}
-        onDragOver={handleDragOver}
-        onDragEnter={handleDragEnter}
-        onDragLeave={handleDragLeave}
-        onDrop={handleDrop}
-        onClick={handleClick} // Click opens file upload
-      >
-        <p className="text-center text-gray-600">
-          {dragActive ? "Drop image here" : "Drag image here or click to open upload"}
-        </p>
+      {/* Combined Image URL Input and Drag & Drop */}
+      <div className="mb-4">
+        <label htmlFor="imageInput" className="block text-sm text-gray-600 mb-2">
+          Add an image:
+        </label>
+        {/* URL Input */}
         <input
-          ref={fileInputRef} // Reference for file upload
-          type="file"
-          accept="image/*"
-          className="hidden" // hide data input
-          onChange={handleFileInputChange}
+          id="imageInput"
+          type="text"
+          placeholder="Enter Image URL"
+          className="w-full p-2 mb-2 border rounded"
+          value={imageUrl}
+          onChange={(e) => setImageUrl(e.target.value)}
         />
-      </div>
-
-      {/* Image Preview */}
-      {imageUrl && (
-        <div className="mb-2">
-          <p className="text-sm text-gray-600">Imgage Preview:</p>
-          <img
-            src={imageUrl}
-            alt="Uploaded preview"
-            className="w-full h-auto rounded"
+        
+        {/* Drag & Drop Section + File Upload */}
+        <div
+          className={`w-full p-4 mb-2 border-2 rounded cursor-pointer transition ${
+            dragActive ? "border-blue-500 bg-blue-100" : "border-gray-300"
+          }`}
+          onDragOver={handleDragOver}
+          onDragEnter={handleDragEnter}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+          onClick={handleClick} // Click opens file upload
+        >
+          <p className="text-center text-gray-600">
+            {dragActive ? "Drop image here" : "Drag image here or click to open upload"}
+          </p>
+          <input
+            ref={fileInputRef} // Reference for file upload
+            type="file"
+            accept="image/*"
+            className="hidden" // hide file input
+            onChange={handleFileInputChange}
           />
         </div>
-      )}
+      </div>
 
       <textarea
         ref={textareaRef}
