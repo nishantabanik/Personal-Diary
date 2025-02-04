@@ -102,7 +102,7 @@ const DiaryForm = ({
         onClick={handleClick} // Click opens file upload
       >
         <p className="text-center text-gray-600">
-          {dragActive ? "Lass das Bild hier fallen" : "Bild hierher ziehen oder klicken zum Hochladen"}
+          {dragActive ? "Drop image here" : "Drag image here or click to open upload"}
         </p>
         <input
           ref={fileInputRef} // Reference for file upload
