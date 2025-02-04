@@ -12,6 +12,7 @@ const DiaryForm = ({
 }) => {
   const textareaRef = useRef(null);
   const [dragActive, setDragActive] = useState(false);
+  const fileInputRef = useRef(null); // Reference for file input
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -26,7 +27,7 @@ const DiaryForm = ({
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImageUrl(reader.result); // Speichert das Bild als Data URL
+        setImageUrl(reader.result); // Saves image as url
       };
       reader.readAsDataURL(file);
     }
@@ -59,6 +60,11 @@ const DiaryForm = ({
     }
   };
 
+  const handleClick = () => {
+    // Opens file upload dialogue, if drag & drop section is active
+    fileInputRef.current.click();
+  };
+
   return (
     <>
       <input
@@ -75,7 +81,7 @@ const DiaryForm = ({
         onChange={(e) => setDate(e.target.value)}
       />
 
-      {/* Bild-URL eingeben */}
+      {/* Insert Img URL */}
       <input
         type="text"
         placeholder="Image URL"
@@ -84,7 +90,7 @@ const DiaryForm = ({
         onChange={(e) => setImageUrl(e.target.value)}
       />
 
-      {/* Drag & Drop Bereich + Datei-Upload */}
+      {/* Drag & Drop Section + File Upload */}
       <div
         className={`w-full p-4 mb-2 border-2 rounded cursor-pointer transition ${
           dragActive ? "border-blue-500 bg-blue-100" : "border-gray-300"
@@ -93,22 +99,24 @@ const DiaryForm = ({
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
+        onClick={handleClick} // Click opens file upload
       >
         <p className="text-center text-gray-600">
           {dragActive ? "Lass das Bild hier fallen" : "Bild hierher ziehen oder klicken zum Hochladen"}
         </p>
         <input
+          ref={fileInputRef} // Reference for file upload
           type="file"
           accept="image/*"
-          className="hidden"
+          className="hidden" // hide data input
           onChange={handleFileInputChange}
         />
       </div>
 
-      {/* Bildvorschau */}
+      {/* Image Preview */}
       {imageUrl && (
         <div className="mb-2">
-          <p className="text-sm text-gray-600">Bildvorschau:</p>
+          <p className="text-sm text-gray-600">Imgage Preview:</p>
           <img
             src={imageUrl}
             alt="Uploaded preview"
