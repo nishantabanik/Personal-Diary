@@ -24,9 +24,11 @@ const Header = ({ setEntries, entries }) => {
     }
 
     // Check if there's already an entry for the selected date
-    const dateExists = entries.some(entry => entry.date === date);
+    const dateExists = entries.some((entry) => entry.date === date);
     if (dateExists) {
-      setError("An entry for this date already exists. Please choose another date.");
+      setError(
+        "An entry for this date already exists. Please choose another date."
+      );
       return;
     }
 
