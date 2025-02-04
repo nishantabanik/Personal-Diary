@@ -5,13 +5,12 @@ import AddEntryButton from "./AddEntryButton";
 import AddEntryModal from "./AddEntryModal";
 
 const Header = ({ setEntries, entries }) => {
-  // Receiving setEntries and entries as props
   const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
-  const [title, setTitle] = useState(""); // State for entry title
-  const [date, setDate] = useState(""); // State for entry date
-  const [imageUrl, setImageUrl] = useState(""); // State for entry image URL
-  const [content, setContent] = useState(""); // State for entry content
-  const [error, setError] = useState(""); // State for error messages
+  const [title, setTitle] = useState("");
+  const [date, setDate] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [content, setContent] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
     setError(""); // Clear errors when any field changes
@@ -24,6 +23,13 @@ const Header = ({ setEntries, entries }) => {
       return;
     }
 
+    // Check if there's already an entry for the selected date
+    const dateExists = entries.some(entry => entry.date === date);
+    if (dateExists) {
+      setError("An entry for this date already exists. Please choose another date.");
+      return;
+    }
+
     const newEntry = {
       id: Date.now(), // Unique ID for the new entry
       title,
@@ -33,7 +39,7 @@ const Header = ({ setEntries, entries }) => {
     };
 
     setEntries([newEntry, ...entries]); // Add new entry to the beginning of entries array
-    setIsModalOpen(false); // Close the modal
+    setIsModalOpen(false);
 
     // Clear form fields after saving
     setTitle("");
@@ -44,10 +50,10 @@ const Header = ({ setEntries, entries }) => {
 
   return (
     <motion.header
-      initial={{ opacity: 0, y: -20 }} // Initial animation state
-      animate={{ opacity: 1, y: 0 }} // Final animation state
-      transition={{ duration: 2 }} // Duration of the animation
-      className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white p-6" // Styling for the header
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 2 }}
+      className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white p-6"
     >
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-center py-4 gap-6">
@@ -60,13 +66,12 @@ const Header = ({ setEntries, entries }) => {
               Capture your thoughts, one day at a time.
             </p>
           </div>
-          <AddEntryButton onClick={() => setIsModalOpen(true)} />{" "}
-          {/* Button to open modal */}
+          <AddEntryButton onClick={() => setIsModalOpen(true)} />
         </div>
       </div>
       <AddEntryModal
         isOpen={isModalOpen} // Pass modal open state
-        onClose={() => setIsModalOpen(false)} // Function to close modal
+        onClose={() => setIsModalOpen(false)}
         title={title}
         setTitle={setTitle}
         date={date}

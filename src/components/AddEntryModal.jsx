@@ -18,7 +18,7 @@ const AddEntryModal = ({
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-96 text-black flex flex-col items-center relative z-50">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-96 text-gray-500 flex flex-col items-center relative z-50">
         <h2 className="text-2xl font-bold mb-4">Add New Entry</h2>
         {error && <p className="text-red-500 mb-2">{error}</p>}
         <DiaryForm
