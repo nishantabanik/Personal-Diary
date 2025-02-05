@@ -24,12 +24,6 @@ const App = () => {
       <Header setEntries={setEntries} entries={entries} />{" "}
       {/* Passing setEntries and entries to Header */}
       <main className="container mx-auto p-4 flex-grow">
-        <section className="hero bg-base-200 text-center py-10 rounded-lg shadow">
-          {" "}
-          {/* Hero section */}
-          <h1 className="text-4xl font-bold">Welcome to Secret Scribblers</h1>
-        </section>
-
         <section className="my-8">
           <h2 className="text-2xl font-semibold mb-4">Your Diary Entries</h2>
           <Entries entries={entries} />{" "}
