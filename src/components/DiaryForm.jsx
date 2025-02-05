@@ -11,27 +11,26 @@ const DiaryForm = ({
   setContent,
 }) => {
   const textareaRef = useRef(null);
+  const fileInputRef = useRef(null);
   const [dragActive, setDragActive] = useState(false);
-  const fileInputRef = useRef(null); // Reference for file input
+  const [defaultImage, setDefaultImage] = useState(""); // Speichert das zufällig gewählte Bild
 
   const defaultImages = [
-    "public/images/jeshoots-com-9n1USijYJZ4-unsplash.jpg", // Sample Image 1
-    "public/images/marissa-grootes-WDNRd72gF4s-unsplash.jpg", // Sample Image 2
-    "public/images/nicolas-messifet-qBJQiKESR9c-unsplash.jpg", // Sample Image 3
+    "/images/jeshoots-com-9n1USijYJZ4-unsplash.jpg",
+    "/images/marissa-grootes-WDNRd72gF4s-unsplash.jpg",
+    "/images/nicolas-messifet-qBJQiKESR9c-unsplash.jpg",
   ];
 
-  // Random sample image applied in case user does not add image url or file
-  const getRandomDefaultImage = () => {
-    const randomIndex = Math.floor(Math.random() * defaultImages.length);
-    return defaultImages[randomIndex];
-  };
+  useEffect(() => {
+    // Setze das Standardbild nur einmal beim Laden der Komponente
+    setDefaultImage(defaultImages[Math.floor(Math.random() * defaultImages.length)]);
+  }, []);
 
   useEffect(() => {
     if (textareaRef.current) {
-      textareaRef.current.style.height = "auto"; // reset height
-      const maxHeight = window.innerHeight * 0.6; // max height
-      const newHeight = Math.min(textareaRef.current.scrollHeight, maxHeight);
-      textareaRef.current.style.height = `${newHeight}px`; // adapt height
+      textareaRef.current.style.height = "auto";
+      const maxHeight = window.innerHeight * 0.6;
+      textareaRef.current.style.height = `${Math.min(textareaRef.current.scrollHeight, maxHeight)}px`;
     }
   }, [content]);
 
@@ -39,7 +38,7 @@ const DiaryForm = ({
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImageUrl(reader.result); // Save image as URL
+        setImageUrl(reader.result);
       };
       reader.readAsDataURL(file);
     }
@@ -73,7 +72,6 @@ const DiaryForm = ({
   };
 
   const handleClick = () => {
-    // Opens file upload dialogue, if drag & drop section is active
     fileInputRef.current.click();
   };
 
@@ -93,8 +91,6 @@ const DiaryForm = ({
         onChange={(e) => setDate(e.target.value)}
       />
 
-      
-
       <textarea
         ref={textareaRef}
         placeholder="Content"
@@ -104,12 +100,11 @@ const DiaryForm = ({
         onChange={(e) => setContent(e.target.value)}
       ></textarea>
 
-      {/* Combined Image URL Input and Drag & Drop */}
+      {/* Image Input */}
       <div className="mb-4">
         <label htmlFor="imageInput" className="block text-sm text-gray-600 mb-2">
           Add an image (optional):
         </label>
-        {/* URL Input */}
         <input
           id="imageInput"
           type="text"
@@ -118,8 +113,8 @@ const DiaryForm = ({
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
         />
-        
-        {/* Drag & Drop Section + File Upload */}
+
+        {/* Drag & Drop */}
         <div
           className={`w-full p-4 mb-2 border-2 rounded cursor-pointer transition ${
             dragActive ? "border-blue-500 bg-blue-100" : "border-gray-300"
@@ -128,29 +123,31 @@ const DiaryForm = ({
           onDragEnter={handleDragEnter}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
-          onClick={handleClick} // Click opens file upload
+          onClick={handleClick}
         >
           <p className="text-center text-gray-600">
             {dragActive ? "Drop image here" : "Drag image here or click to open upload"}
           </p>
           <input
-            ref={fileInputRef} // Reference for file upload
+            ref={fileInputRef}
             type="file"
             accept="image/*"
-            className="hidden" // hide file input
+            className="hidden"
             onChange={handleFileInputChange}
           />
         </div>
       </div>
 
-      {/* Image Preview or Default Image */}
+      {/* Image Preview */}
       <div className="mt-4">
         <p className="text-sm text-gray-600 text-center">Image Preview:</p>
+        <div className="w-full max-h-[200px] overflow-hidden">
         <img
-          src={imageUrl || getRandomDefaultImage()}
+          src={imageUrl || defaultImage}
           alt="Preview"
-          className="mobject-cover rounded"
+          className="object-cover w-full h-full rounded"
         />
+        </div>
       </div>
     </>
   );
