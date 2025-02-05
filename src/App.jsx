@@ -9,7 +9,8 @@ const App = () => {
 
   // Load entries from localStorage when the app first loads
   useEffect(() => {
-    const storedEntries = JSON.parse(localStorage.getItem("diaryEntries")) || []; // Retrieve stored entries from localStorage
+    const storedEntries =
+      JSON.parse(localStorage.getItem("diaryEntries")) || []; // Retrieve stored entries from localStorage
     setEntries(storedEntries); // Set the retrieved entries to the state
   }, []);
 
@@ -20,16 +21,18 @@ const App = () => {
 
   return (
     <div className="bg-base-100 text-base-content min-h-screen flex flex-col">
-      <Header setEntries={setEntries} entries={entries} /> {/* Passing setEntries and entries to Header */}
+      <Header setEntries={setEntries} entries={entries} />{" "}
+      {/* Passing setEntries and entries to Header */}
       <main className="container mx-auto p-4 flex-grow">
         <section className="my-8">
           <h2 className="text-2xl font-semibold mb-4">Your Diary Entries</h2>
-          <Entries entries={entries} /> {/* Passing entries to Entries component */}
+          <Entries entries={entries} />{" "}
+          {/* Passing entries to Entries component */}
         </section>
       </main>
       <Footer />
     </div>
   );
-}
+};
 
 export default App;
