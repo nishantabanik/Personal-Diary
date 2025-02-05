@@ -15,12 +15,12 @@ const DiaryForm = ({
   const fileInputRef = useRef(null); // Reference for file input
 
   const defaultImages = [
-    "public/images/jeshoots-com-9n1USijYJZ4-unsplash.jpg", // Beispielbild 1
-    "public/images/marissa-grootes-WDNRd72gF4s-unsplash.jpg", // Beispielbild 2 Projects
-    "public/images/nicolas-messifet-qBJQiKESR9c-unsplash.jpg", // Beispielbild 3
+    "public/images/jeshoots-com-9n1USijYJZ4-unsplash.jpg", // Sample Image 1
+    "public/images/marissa-grootes-WDNRd72gF4s-unsplash.jpg", // Sample Image 2
+    "public/images/nicolas-messifet-qBJQiKESR9c-unsplash.jpg", // Sample Image 3
   ];
 
-  // Zufälliges Bild aus den Standardbildern auswählen, falls kein Bild angegeben wird
+  // Random sample image applied in case user does not add image url or file
   const getRandomDefaultImage = () => {
     const randomIndex = Math.floor(Math.random() * defaultImages.length);
     return defaultImages[randomIndex];
@@ -93,6 +93,17 @@ const DiaryForm = ({
         onChange={(e) => setDate(e.target.value)}
       />
 
+      
+
+      <textarea
+        ref={textareaRef}
+        placeholder="Content"
+        className="w-full p-2 mb-2 border rounded resize overflow-auto"
+        style={{ maxHeight: "90vh" }}
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+      ></textarea>
+
       {/* Combined Image URL Input and Drag & Drop */}
       <div className="mb-4">
         <label htmlFor="imageInput" className="block text-sm text-gray-600 mb-2">
@@ -132,22 +143,13 @@ const DiaryForm = ({
         </div>
       </div>
 
-      <textarea
-        ref={textareaRef}
-        placeholder="Content"
-        className="w-full p-2 mb-2 border rounded resize overflow-auto"
-        style={{ maxHeight: "90vh" }}
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-      ></textarea>
-
       {/* Image Preview or Default Image */}
       <div className="mt-4">
-        <p className="text-sm text-gray-600">Image Preview:</p>
+        <p className="text-sm text-gray-600 text-center">Image Preview:</p>
         <img
           src={imageUrl || getRandomDefaultImage()}
           alt="Preview"
-          className="w-20 h-20 object-cover rounded"
+          className="mobject-cover rounded"
         />
       </div>
     </>
