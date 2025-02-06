@@ -12,7 +12,7 @@ const Footer = () => {
     >
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center py-4 gap-6">
         <div className="flex-shrink-0">
-          <img src="../public/logo-w.svg" alt="Logo" className="w-80" />
+          <img src="./logo-w.svg" alt="Logo" className="w-80" />
         </div>
 
         <p className="text-sm opacity-80 text-center flex-grow">

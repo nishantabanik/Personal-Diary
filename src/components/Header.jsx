@@ -59,7 +59,7 @@ const Header = ({ setEntries, entries }) => {
     >
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-center py-4 gap-6">
-          <img src="../public/logo-w.svg" alt="Logo" className="w-80" />
+          <img src="./logo-w.svg" alt="Logo" className="w-80" />
           <div className="flex flex-col items-center text-center flex-grow mx-4">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-wide drop-shadow-lg">
               Personal Diary
